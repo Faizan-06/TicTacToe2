@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe - Olive & Yellow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="game-wrapper">
+    <h1>TIC TAC TOE</h1>
+    
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">✿</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="game-info">
+      <div class="mode-selector">
+        <button class="mode-btn" data-mode="pvp">2 Players</button>
+        <button class="mode-btn active" data-mode="ai">VS Computer</button>
+      </div>
+      <div id="status"></div>
+    </div>
+
+    <div class="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+
+    <div class="scoreboard">
+      <div class="score-box" id="score-x-box">
+        <div class="score-label">Player X</div>
+        <div class="score-value" id="score-x">0</div>
+      </div>
+      <div class="score-box" id="score-draw-box">
+        <div class="score-label">Draws</div>
+        <div class="score-value" id="score-draw">0</div>
+      </div>
+      <div class="score-box" id="score-o-box">
+        <div class="score-label">Player O</div>
+        <div class="score-value" id="score-o">0</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="reset-btn">New Game</button>
+      <button class="btn" id="reset-score-btn">Reset Score</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
