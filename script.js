@@ -82,6 +82,9 @@ function checkWinner() {
     
     scores[currentPlayer]++;
     updateScoreboard();
+    
+    scoreXBox.classList.remove('turn-active');
+    scoreOBox.classList.remove('turn-active');
     return;
   }
 
@@ -90,6 +93,9 @@ function checkWinner() {
     statusDisplay.textContent = '🤝 Draw!';
     scores.draw++;
     updateScoreboard();
+    
+    scoreXBox.classList.remove('turn-active');
+    scoreOBox.classList.remove('turn-active');
     return;
   }
 
@@ -102,15 +108,45 @@ function checkWinner() {
 }
 
 function aiMove() {
-  if (!gameActive) return;
+  if (!gameActive || gameMode !== 'ai' || currentPlayer !== 'O') return;
+
+  const bestMove = findBestMove();
+  makeMove(bestMove);
+  checkWinner();
+}
+
+function findBestMove() {
+  let move = checkWinningMove('O');
+  if (move !== -1) return move;
+
+  move = checkWinningMove('X');
+  if (move !== -1) return move;
+
+  if (gameState[4] === '') return 4;
+
+  const corners = [0, 2, 6, 8];
+  const availableCorners = corners.filter(i => gameState[i] === '');
+  if (availableCorners.length > 0) {
+    return availableCorners[Math.floor(Math.random() * availableCorners.length)];
+  }
 
   const available = gameState.map((val, idx) => val === '' ? idx : null).filter(val => val !== null);
-  
-  if (available.length === 0) return;
+  return available[Math.floor(Math.random() * available.length)];
+}
 
-  const randomIndex = available[Math.floor(Math.random() * available.length)];
-  makeMove(randomIndex);
-  checkWinner();
+function checkWinningMove(player) {
+  for (let pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    const line = [gameState[a], gameState[b], gameState[c]];
+    
+    if (line.filter(cell => cell === player).length === 2 && 
+        line.filter(cell => cell === '').length === 1) {
+      if (gameState[a] === '') return a;
+      if (gameState[b] === '') return b;
+      if (gameState[c] === '') return c;
+    }
+  }
+  return -1;
 }
 
 function resetGame() {
@@ -131,7 +167,6 @@ function resetScores() {
   updateScoreboard();
 }
 
-// Event Listeners
 cells.forEach(cell => cell.addEventListener('click', handleCellClick));
 resetBtn.addEventListener('click', resetGame);
 resetScoreBtn.addEventListener('click', resetScores);
@@ -145,6 +180,5 @@ modeBtns.forEach(btn => {
   });
 });
 
-// Initialize
 updateStatus();
 updateScoreboard();

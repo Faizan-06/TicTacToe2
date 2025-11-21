@@ -149,6 +149,10 @@ h1 {
   animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+.cell.taken:hover {
+  transform: none;
+}
+
 .cell.win {
   background: linear-gradient(135deg, #7a8450 0%, #5f6b3e 100%);
   color: #f4d03f;
@@ -254,12 +258,12 @@ h1 {
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 2.2rem;
+    font-size: 1.4rem;
     letter-spacing: 4px;
   }
   
   .cell {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .controls {
